@@ -1,2 +1,3 @@
-# appventasvehiculos
-app android venta vehículos
+# App ventas vehiculos
+
+Versión 0.1
