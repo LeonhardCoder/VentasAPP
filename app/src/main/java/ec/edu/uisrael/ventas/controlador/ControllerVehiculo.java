@@ -24,7 +24,7 @@ public class ControllerVehiculo {
         return (ArrayList<Vehiculo>) datos;
     }
 
-    public boolean  addvehiculo(Object obj){
+    public boolean  addvehiculo(Object obj) throws Exception {
         Vehiculo vh = (Vehiculo) obj;
         if (datos.contains(vh)) return false;
         vh.setCodigo(datos.size()+ 1);
@@ -32,13 +32,18 @@ public class ControllerVehiculo {
         return true;
     }
 
-    public boolean  updatevehiculo( Vehiculo vh, int id){
+    public boolean  updatevehiculo( Vehiculo vh, int id)throws Exception {
         Vehiculo vhmodif = datos.get(id);
         vhmodif.setPlaca(vh.getPlaca());
         vhmodif.setMarca(vh.getMarca());
         vhmodif.setColor(vh.getColor());
         vhmodif.setFecha(vh.getFecha());
         vhmodif.setEstado(vh.isEstado());
+        return true;
+    }
+
+    public boolean  removevehiculo(int id) throws Exception {
+        datos.remove(id);
         return true;
     }
 

@@ -17,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import ec.edu.uisrael.ventas.R;
 import ec.edu.uisrael.ventas.controlador.ControllerVehiculo;
@@ -31,6 +33,7 @@ public class VehiculoAddUpdate extends AppCompatActivity {
     private CheckBox ckestado;
     private Button btnsave;
     private Button btncancl;
+    private Button btndelete;
     private ControllerVehiculo adminSale;
     private DatePickerDialog fromDatePickerDialog;
     private SimpleDateFormat dateFormatter;
@@ -51,15 +54,18 @@ public class VehiculoAddUpdate extends AppCompatActivity {
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         btnsave = (Button) findViewById(R.id.btnguardar);
         btncancl = (Button) findViewById(R.id.btncancelar);
+        btndelete =(Button) findViewById(R.id.btndelete);
         posicion_list = getIntent().getExtras().getInt("posicion");
         if (posicion_list > 0) {
             ckestado.setChecked(false);
             obtenerObjeto(posicion_list-1);
+            btndelete.setVisibility(View.VISIBLE);
             btnsave.setText(R.string.action_update_sale);
         }else {
             btnsave.setText(R.string.action_save_sale);
             etDate.setText(dateFormatter.format(Calendar.getInstance().getTime()).toString());
             ckestado.setChecked(true);
+            btndelete.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -74,9 +80,9 @@ public class VehiculoAddUpdate extends AppCompatActivity {
         /** Invoca a los metodos actualizar o guardar dependiendo del contexto.
          *  Crea un objeto apartir de los datos de la vista.
          * */
-        String placa = etPlaca.getText().toString();
-        String marca = etMarca.getText().toString();
-        String color = etcolor.getText().toString();
+        String placa = etPlaca.getText().toString().toUpperCase();
+        String marca = etMarca.getText().toString().toUpperCase();
+        String color = etcolor.getText().toString().toUpperCase();
         boolean estado = ckestado.isChecked();
         Date fecha = new Date();
         try {
@@ -88,7 +94,7 @@ public class VehiculoAddUpdate extends AppCompatActivity {
             Toast.makeText(VehiculoAddUpdate.this, getString(R.string.sms_error_placa), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (marca.isEmpty() || marca.equals(null)){
+       if (marca.isEmpty() || marca.equals(null)){
             Toast.makeText(VehiculoAddUpdate.this, getString(R.string.sms_error_marca), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -96,6 +102,24 @@ public class VehiculoAddUpdate extends AppCompatActivity {
             Toast.makeText(VehiculoAddUpdate.this, getString(R.string.sms_error_color), Toast.LENGTH_SHORT).show();
             return;
         }
+        Pattern mPattern = Pattern.compile("^[A-Z]{3}[0-9]{4}$");
+        Pattern mLetras = Pattern.compile("^[A-Za-z]*$");
+        Matcher matcherPlaca = mPattern.matcher(placa.toString());
+        if(!matcherPlaca.matches()){
+            Toast.makeText(VehiculoAddUpdate.this, getString(R.string.sms_validar_placa), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Matcher matMarca = mLetras.matcher(marca.toString());
+        if(!matMarca.matches()){
+            Toast.makeText(VehiculoAddUpdate.this, getString(R.string.sms_validar_marca), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Matcher matcolor = mLetras.matcher(color);
+        if(!matcolor.matches()){
+            Toast.makeText(VehiculoAddUpdate.this, getString(R.string.sms_validar_color), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         vh.setMarca(marca);
         vh.setPlaca(placa);
         vh.setColor(color);
@@ -118,6 +142,17 @@ public class VehiculoAddUpdate extends AppCompatActivity {
         }
     }
 
+    public void onclickDelete (View v) {
+        try {
+            if (posicion_list > 0 ){
+                adminSale.removevehiculo(posicion_list-1);
+                Toast.makeText(VehiculoAddUpdate.this, getString(R.string.sms_ok_delete), Toast.LENGTH_SHORT).show();
+                regresar ();
+            }
+        } catch (Exception e) {
+            Toast.makeText(VehiculoAddUpdate.this, getString(R.string.sms_error_delete), Toast.LENGTH_SHORT).show();
+        }
+    }
     public void onclickCancel (View v) {
         regresar();
     }
@@ -134,14 +169,16 @@ public class VehiculoAddUpdate extends AppCompatActivity {
         /**Invoca DatePickerDialog para seleccionar la fecha formato (Year-Month-Day)
          * */
         if (view == etDate) {
-            Calendar newCalendar = Calendar.getInstance();
-            fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    Calendar newDate = Calendar.getInstance();
-                    newDate.set(year, monthOfYear, dayOfMonth);
-                    etDate.setText(dateFormatter.format(newDate.getTime()));
-                }
-            },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+            if (fromDatePickerDialog == null){
+                Calendar newCalendar = Calendar.getInstance();
+                fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        Calendar newDate = Calendar.getInstance();
+                        newDate.set(year, monthOfYear, dayOfMonth);
+                        etDate.setText(dateFormatter.format(newDate.getTime()));
+                    }
+                },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+            }
             fromDatePickerDialog.show();
         }
     }

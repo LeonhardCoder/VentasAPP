@@ -31,7 +31,7 @@
                     android:id="@+id/txtplaca"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="textCapCharacters"
                     android:hint="@string/placa"
                     android:maxLines="1"/>
             </android.support.design.widget.TextInputLayout>
@@ -44,7 +44,7 @@
                     android:id="@+id/txtmarca"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="textCapCharacters"
                     android:hint="@string/marca"
                     android:maxLines="1"/>
             </android.support.design.widget.TextInputLayout>
@@ -57,7 +57,7 @@
                     android:id="@+id/txtcolor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
+                    android:inputType="textCapCharacters"
                     android:hint="@string/color"
                     android:maxLines="1"/>
             </android.support.design.widget.TextInputLayout>
@@ -101,6 +101,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/action_cancel"
                 android:onClick="onclickCancel" />
+
+            <Button
+                android:id="@+id/btndelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_delete"
+                android:onClick="onclickDelete"
+                android:textStyle="bold"/>
 
         </LinearLayout>
     </ScrollView>
