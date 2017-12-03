@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Vehiculos</string>
+    <string name="app_name">Vehículos</string>
     <string name="action_settings">Settings</string>
     <string name="prompt_username">Usuario</string>
     <string name="prompt_password">Clave</string>
-    <string name="action_sign_in">Iniciar sesion</string>
+    <string name="action_sign_in">Iniciar sesión</string>
     <string name="action_sign_in_short">Entrar</string>
     <string name="error_incorrect_login">Usuario o clave incorrecta</string>
     <string name="placa">Placa</string>
@@ -14,10 +14,16 @@
     <string name="action_save_sale">Guardar</string>
     <string name="action_update_sale">Actualizar</string>
     <string name="action_cancel">Cancelar</string>
+    <string name="action_delete">Eliminar</string>
     <string name="sms_save">Guardado correctamente</string>
     <string name="sms_error_save">Error al intentar guardar :</string>
     <string name="sms_error_placa">El campo placa es un valor requerido </string>
     <string name="sms_error_marca">>El campo marca es un valor requerido</string>
     <string name="sms_error_color">>El campo color es un valor requerido</string>
     <string name="sms_update">Actualizado correctamente</string>
+    <string name="sms_ok_delete">Vehiculo eliminado</string>
+    <string name="sms_error_delete">Vehiculo eliminado</string>
+    <string name="sms_validar_placa">La placa del vehículo  no cumple con el formato correcto Ej: PTZ9999</string>
+    <string name="sms_validar_marca">La marca del vehículo no debe contener números Ej: Nissan, Ford, Chevrolet, Toyota…</string>
+    <string name="sms_validar_color">El color del vehículo no debe contener números utilice (Rojo, Negro, Blanco…)</string>
 </resources>

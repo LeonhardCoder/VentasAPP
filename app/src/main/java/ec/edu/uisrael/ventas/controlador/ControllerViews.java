@@ -3,6 +3,7 @@ package ec.edu.uisrael.ventas.controlador;
 import android.content.Intent;
 
 import ec.edu.uisrael.ventas.vista.MainActivity;
+import ec.edu.uisrael.ventas.vista.SplashScreen;
 import ec.edu.uisrael.ventas.vista.VehiculoAddUpdate;
 import ec.edu.uisrael.ventas.vista.VehiculoList;
 
@@ -13,7 +14,7 @@ import ec.edu.uisrael.ventas.vista.VehiculoList;
 public class ControllerViews {
     private static Intent loginok = null;
     private static Intent vehiculoAddUpdate = null;
-    private static Intent vehiculoAdd = null;
+    private static Intent SplashScreen = null;
     private static Intent vehiculoList = null;
     private static final ControllerViews adminview = new ControllerViews();
 
@@ -40,5 +41,12 @@ public class ControllerViews {
         if (vehiculoList == null)
             vehiculoList = new Intent(vehiculoAddUpdate,vehiculoListClass);
         return vehiculoList;
+    }
+
+
+    public static Intent getViewSplashScreen(SplashScreen splashScreen, Class<MainActivity> mainActivityClass) {
+        if (SplashScreen == null)
+            SplashScreen = new Intent(splashScreen,mainActivityClass);
+        return SplashScreen;
     }
 }
