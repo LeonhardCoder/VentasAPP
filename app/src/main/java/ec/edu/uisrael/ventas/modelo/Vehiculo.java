@@ -7,6 +7,7 @@ import java.util.Date;
  */
 
 public class Vehiculo {
+    //Integer acepta nulos, 
     private int codigo;
     private String placa;
     private String marca;
@@ -33,7 +34,7 @@ public class Vehiculo {
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
-
+    //implementar equals
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -89,4 +90,5 @@ public class Vehiculo {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+    //Agregar metodo de to string
 }
